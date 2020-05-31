@@ -163,7 +163,14 @@ self.addEventListener('message', function(event) {
 	                            console.log('send old value (' +  oldValue + ')  to browser: ');
 	                            console.log(cns);
 	                            console.log('');
-	                            updateDb(url, coins, c);
+	                            
+	                            if(coins){
+	                            	  updateDb(url, coins, c);
+	                            }
+	                            else{
+	                            	updateDb(u, cns, c);
+	                            }
+	                            
 	                            
 	                            
 	                            
