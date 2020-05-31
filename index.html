@@ -22,6 +22,7 @@ if (location.protocol !== "https:") {
         var ndigits = 6;
 
         var params = [];
+        var url = null;
 
         // time in which to expect an update
         var interval = 30000;
@@ -43,6 +44,10 @@ if (location.protocol !== "https:") {
 	        	    
 	        	    if(event.data.oldprice && !lastprice){
 	        	    		lastprice = event.data.oldprice;
+	        	    		
+	        	    		params = event.data.coins;
+	        	    		url = event.data.url;
+	        	    		
 		        	    a(true);
 	        	    	
 	        	    }
@@ -229,7 +234,7 @@ if (location.protocol !== "https:") {
                     }
 
                     if (!f) {
-                    	
+                    	 
                     	/*
                         fsym = 'EUR';
                         params['ETH'] = 0.137;
@@ -240,6 +245,7 @@ if (location.protocol !== "https:") {
                         */
 
                     } else {
+                    	   url = "https://min-api.cryptocompare.com/data/price?fsym=" + fsym + "&tsyms=" + tsyms;
                         fsym = params["fsym"];
                     }
 
@@ -249,8 +255,7 @@ if (location.protocol !== "https:") {
                 		delete params.fsym;
                 }
                 
-                var url = "https://min-api.cryptocompare.com/data/price?fsym=" + fsym + "&tsyms=" + tsyms;
-
+                
                
                 if (navigator.serviceWorker.controller) {
                 	console.log('sending emty message to worker');
@@ -269,7 +274,7 @@ if (location.protocol !== "https:") {
                     
                 }
 				
-                if(rs && f){
+                if(rs){
                 		retrieveStock(updatePrice, params, url);
                 }
 
