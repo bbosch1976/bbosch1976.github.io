@@ -213,16 +213,17 @@ if (location.protocol !== "https:") {
             try {
             	
             		var f = false;
+            		var myurl = null;
 
                 if (!tsyms) {
                     tsyms = "";
                     var regex = /[?&]([^=#]+)=([^&#]*)/g,
-                        url = window.location.href,
+                        myurl = window.location.href,
                         match;
 
                     
 
-                    while (match = regex.exec(url)) {
+                    while (match = regex.exec(myurl)) {
                         params[match[1]] = match[2];
 
                         if (match[1] != 'fsym') {
