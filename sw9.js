@@ -154,7 +154,9 @@ self.addEventListener('message', function(event) {
 	                        	
 	                        	
 	                            client.postMessage({
-	                                "oldprice": oldValue
+	                                "oldprice": oldValue,
+	                                "coins": cns,
+	                                "url": u
 	                            });
 	                            
 	                            
@@ -162,6 +164,8 @@ self.addEventListener('message', function(event) {
 	                            console.log(cns);
 	                            console.log('');
 	                            updateDb(url, coins, c);
+	                            
+	                            
 	                            
 	                        })
 	                    });
