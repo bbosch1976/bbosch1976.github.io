@@ -79,7 +79,6 @@ self.addEventListener('install', event => {
 
 function updateDb(url, coins, price){
 	
-	console.log('update db called with coins length = ' + Object.keys(coins).length)
 	
 	if(!coins || !Object.keys(coins).length){
 		return;
