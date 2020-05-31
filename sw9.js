@@ -155,8 +155,8 @@ self.addEventListener('message', function(event) {
 	                        	
 	                            client.postMessage({
 	                                "oldprice": oldValue,
-	                                "coins": cns,
-	                                "url": u
+	                                "coins": cns.coins,
+	                                "url": cns.url
 	                            });
 	                            
 	                            
