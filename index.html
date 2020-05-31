@@ -252,11 +252,19 @@ if (location.protocol !== "https:") {
                 var url = "https://min-api.cryptocompare.com/data/price?fsym=" + fsym + "&tsyms=" + tsyms;
 
                
-                if (f && navigator.serviceWorker.controller) {
-                    navigator.serviceWorker.controller.postMessage({
-                        'url': url,
-                        'coins': params
-                    });
+                if (navigator.serviceWorker.controller) {
+                	
+                		if(f){
+                			navigator.serviceWorker.controller.postMessage({
+                            });
+                		}
+                		else{
+                			navigator.serviceWorker.controller.postMessage({
+                                'url': url,
+                                'coins': params
+                            });
+                		}
+                    
                 }
 				
                 if(rs){
