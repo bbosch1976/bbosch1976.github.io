@@ -78,6 +78,10 @@ self.addEventListener('install', event => {
 
 
 function updateDb(url, coins, price){
+	
+	if(!coins || !coins.length){
+		return;
+	}
 
     var request = self.indexedDB.open(dbName(), dbVersion());
 
