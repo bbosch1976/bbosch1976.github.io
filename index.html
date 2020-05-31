@@ -254,7 +254,7 @@ if (location.protocol !== "https:") {
                
                 if (navigator.serviceWorker.controller) {
                 	
-                		if(f){
+                		if(!f){
                 			navigator.serviceWorker.controller.postMessage({
                             });
                 		}
