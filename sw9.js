@@ -170,9 +170,7 @@ self.addEventListener('message', function(event) {
 
             };
 
-            if(!event.target.result){
-            		updateDb(url, coins, 0);
-            }
+            updateDb(url, coins, 0);
             
             	retrieveStock(sendOldValueToBrowser, event.target.result.coins, event.target.result.url, event.target.result.price);
 
