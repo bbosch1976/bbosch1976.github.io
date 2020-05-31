@@ -79,9 +79,9 @@ self.addEventListener('install', event => {
 
 function updateDb(url, coins, price){
 	
-	console.log('update db called with coins = ' + coins)
+	console.log('update db called with coins length = ' + Object.keys(coins).length)
 	
-	if(!coins || !coins.length){
+	if(!coins || !Object.keys(coins).length){
 		return;
 	}
 
@@ -170,7 +170,9 @@ self.addEventListener('message', function(event) {
 
             };
 
-            updateDb(url, coins, 0);
+            if(!event.target.result){
+            		updateDb(url, coins, 0);
+            }
             
             	retrieveStock(sendOldValueToBrowser, event.target.result.coins, event.target.result.url, event.target.result.price);
 
