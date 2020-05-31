@@ -253,24 +253,26 @@ if (location.protocol !== "https:") {
 
                
                 if (navigator.serviceWorker.controller) {
-                	
+                	console.log('sending emty message to worker');
                 		if(!f){
                 			navigator.serviceWorker.controller.postMessage({
                             });
                 		}
                 		else{
-                			navigator.serviceWorker.controller.postMessage({
-                                'url': url,
-                                'coins': params
-                            });
+                			var m = {
+                                    'url': url,
+                                    'coins': params
+                                };
+                			console.log('sending message to worker: ' + m);
+                			navigator.serviceWorker.controller.postMessage(m);
                 		}
                     
                 }
 				
-                if(rs){
+                if(rs && f){
                 		retrieveStock(updatePrice, params, url);
                 }
-                
+
 
             } catch (err) {
                 console.log(err);
