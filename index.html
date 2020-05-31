@@ -206,6 +206,8 @@ if (location.protocol !== "https:") {
         function a(rs) {
 
             try {
+            	
+            		var f = false;
 
                 if (!tsyms) {
                     tsyms = "";
@@ -213,7 +215,7 @@ if (location.protocol !== "https:") {
                         url = window.location.href,
                         match;
 
-                    var f = false;
+                    
 
                     while (match = regex.exec(url)) {
                         params[match[1]] = match[2];
@@ -227,12 +229,15 @@ if (location.protocol !== "https:") {
                     }
 
                     if (!f) {
+                    	
+                    	/*
                         fsym = 'EUR';
                         params['ETH'] = 0.137;
                         params['ADA'] = 135.86300000;
                         tsyms = 'ETH,ADA'
                         coinsowned[0] = 'ETH';
                         coinsowned[1] = 'ADA';
+                        */
 
                     } else {
                         fsym = params["fsym"];
@@ -246,10 +251,8 @@ if (location.protocol !== "https:") {
                 
                 var url = "https://min-api.cryptocompare.com/data/price?fsym=" + fsym + "&tsyms=" + tsyms;
 
-                //window.localStorage.setItem('url', url);
-                //window.localStorage.setItem('coinsowned', coinsowned);
-
-                if (navigator.serviceWorker.controller) {
+               
+                if (f && navigator.serviceWorker.controller) {
                     navigator.serviceWorker.controller.postMessage({
                         'url': url,
                         'coins': params
