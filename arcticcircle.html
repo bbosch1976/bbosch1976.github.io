@@ -6,40 +6,61 @@
 </head>
 <body
 	style="background: white; margin: 0; height: 100%; overflow: hidden"
-	onkeydown="gen(event);" onresize="resize();">
+	onkeydown="initiate();" onresize="resize();">
 
 	<canvas id="MyCanvas"></canvas>
 	<script>
+        document.addEventListener('touchstart', function(e) {
+
+            initiate();
+
+        }, false);
+
         var iteration = 0;
         var canvas = document.getElementById("MyCanvas");
         var tilesgrid = [];
         var boundingRect = getRect(0, 0, 1, 1);
 
-        tilesgrid[0] = [];
-        tilesgrid[1] = [];
+        var nMove = 50;
+        var maxMove = 40;
+        function initiate() {
 
-        tilesgrid[0][1] = {
-            dx : -1,
-            dy : 0
-        };
-        tilesgrid[0][0] = {
-            dx : -1,
-            dy : 0
+            if (iteration / nMove > maxMove)
+                iteration = 0;
+
+            if (iteration == 0) {
+
+                tilesgrid = [];
+
+                tilesgrid[0] = [];
+                tilesgrid[1] = [];
+
+                tilesgrid[0][1] = {
+                    dx : -1,
+                    dy : 0
+                };
+                tilesgrid[0][0] = {
+                    dx : -1,
+                    dy : 0
+                }
+                tilesgrid[1][1] = {
+                    dx : 1,
+                    dy : 0
+                };
+                tilesgrid[1][0] = {
+                    dx : 1,
+                    dy : 0
+                };
+                boundingRect = getRect(0, 0, 1, 1);
+
+                gen();
+            }
         }
-        tilesgrid[1][1] = {
-            dx : 1,
-            dy : 0
-        };
-        tilesgrid[1][0] = {
-            dx : 1,
-            dy : 0
-        };
 
         function createNewTiles(x, y) {
             var tl1, tl2;
 
             if (Math.random() > .5) {
-                //if((x  + y) % 2== 0){
                 tilesgrid[x][y].dx = 0, tilesgrid[x][y].dy = -1;
                 tilesgrid[x + 1][y].dx = 0, tilesgrid[x + 1][y].dy = -1;
 
@@ -196,13 +217,11 @@
             }
         }
 
-        var nMove = 50;
         function gen() {
 
-            
-            if(iteration/nMove > 50)
+            if (iteration / nMove > maxMove)
                 return;
-            
+
             var iter = (iteration) % (nMove + 1);
 
             if (iter == 0) {
@@ -213,19 +232,16 @@
                 moveTiles();
                 iteration++;
                 gen();
-                
+
             }
             if (iter >= 1 && iter < (nMove + 1)) {
 
                 var l = (iter - 1) / (nMove);
                 drawTiles(l);
-                
-                
+
                 requestAnimationFrame(gen);
                 iteration++;
             }
-
-            
 
         }
 
@@ -280,13 +296,13 @@
                     } else if (tilesgrid[i] && tilesgrid[i][j]) {
 
                         if (tilesgrid[i][j].dx == -1) {
-                            ctx.fillStyle = "green";
+                            ctx.fillStyle = "rgba(0, 150, 0, 1)";
                         } else if (tilesgrid[i][j].dx == 1) {
-                            ctx.fillStyle = "red";
+                            ctx.fillStyle = "rgba(255,0,0, 1)";
                         } else if (tilesgrid[i][j].dy == -1) {
-                            ctx.fillStyle = "yellow";
+                            ctx.fillStyle = "rgba(255 ,255,0, 1)";
                         } else if (tilesgrid[i][j].dy == 1) {
-                            ctx.fillStyle = "blue";
+                            ctx.fillStyle = "rgba(0, 0, 255, 1)";
                         }
 
                         var tx = x - tilesgrid[i][j].dx * tsz
@@ -294,11 +310,13 @@
                         var ty = y - tilesgrid[i][j].dy * tsz
                                 + tilesgrid[i][j].dy * (moveFac) * tsz;
 
-                        ctx.fillRect(tx, ty, tsz*.9, tsz*.9);
+                        ctx.fillRect(tx, ty, tsz * .9, tsz * .9);
                         ctx.beginPath();
-                        ctx.rect(tx, ty, tsz*.9, tsz*.9);
-                        ctx.lineWidth = tsz/20;
+                        ctx.rect(tx, ty, tsz * .9, tsz * .9);
+                        ctx.lineWidth = tsz / 20;
+                        ctx.strokeStyle = "rgba(0, 0, 0, 1)";
                         ctx.stroke();
+
                     }
                 }
             }
@@ -315,7 +333,7 @@
         }
 
         initcanvas();
-        //gen();
+        initiate();
     </script>
 </html>
 
