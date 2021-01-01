@@ -112,9 +112,7 @@ a {
                 formula = frm;
             }
             
-            iteration = 0;
-
-            if (iteration == 0) {
+            
 
                 tilesgrid = [];
 
@@ -138,7 +136,13 @@ a {
                     dy : 0
                 };
                 boundingRect = getRect(0, 0, 1, 1);
-            }
+                
+                if (iteration / nMove > maxMove){
+                    iteration = 0;
+                    gen();
+                }
+                iteration = 0;
+                    
         }
         
         var nMove = 5;
